@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#171a21" />
+  <title>OSRS Tracker</title>
+  <meta name="description" content="A mobile dashboard for your Old School RuneScape stats, powered by Wise Old Man." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>OSRS Tracker</h1>
+      <p class="subtitle">Powered by Wise Old Man</p>
+    </header>
+
+    <form id="search-form" class="search-form" autocomplete="off">
+      <input
+        id="username-input"
+        type="text"
+        inputmode="text"
+        placeholder="RuneScape username"
+        maxlength="12"
+        required
+      />
+      <button type="submit" id="search-btn">Track</button>
+    </form>
+
+    <div id="status" class="status" hidden></div>
+
+    <main id="dashboard" class="dashboard" hidden>
+      <section class="player-card">
+        <div class="player-card-top">
+          <h2 id="player-name">-</h2>
+          <span id="player-type" class="badge">-</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-value" id="stat-combat">-</span>
+            <span class="stat-label">Combat</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-total-level">-</span>
+            <span class="stat-label">Total Level</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-total-xp">-</span>
+            <span class="stat-label">Total XP</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-value" id="stat-ehp">-</span>
+            <span class="stat-label">EHP</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-ehb">-</span>
+            <span class="stat-label">EHB</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-updated">-</span>
+            <span class="stat-label">Updated</span>
+          </div>
+        </div>
+        <button id="refresh-btn" class="link-btn" type="button">Refresh from RuneScape hiscores</button>
+      </section>
+
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="skills" role="tab">Skills</button>
+        <button class="tab" data-tab="bosses" role="tab">Bosses</button>
+        <button class="tab" data-tab="gains" role="tab">Gains</button>
+      </nav>
+
+      <section id="tab-skills" class="tab-panel" data-panel="skills">
+        <div id="skills-list" class="card-grid"></div>
+      </section>
+
+      <section id="tab-bosses" class="tab-panel" data-panel="bosses" hidden>
+        <div id="bosses-list" class="card-grid"></div>
+        <p id="bosses-empty" class="empty-msg" hidden>No boss kills tracked yet.</p>
+      </section>
+
+      <section id="tab-gains" class="tab-panel" data-panel="gains" hidden>
+        <div class="period-picker" id="period-picker">
+          <button class="period active" data-period="day">Day</button>
+          <button class="period" data-period="week">Week</button>
+          <button class="period" data-period="month">Month</button>
+          <button class="period" data-period="year">Year</button>
+        </div>
+        <div id="gains-summary" class="stat-row gains-summary"></div>
+        <h3 class="section-title">Top skill XP gained</h3>
+        <div id="gains-skills" class="card-grid"></div>
+        <h3 class="section-title">Top boss KC gained</h3>
+        <div id="gains-bosses" class="card-grid"></div>
+      </section>
+    </main>
+
+    <p class="footer-note">Data from <a href="https://wiseoldman.net" target="_blank" rel="noopener">wiseoldman.net</a></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
