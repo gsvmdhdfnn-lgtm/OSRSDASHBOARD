@@ -1,4 +1,4 @@
-const CACHE_NAME = "osrs-tracker-v1";
+const CACHE_NAME = "osrs-tracker-v2";
 const APP_SHELL = [
   "index.html",
   "style.css",
@@ -31,7 +31,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Network-first: always prefer a fresh copy of the app shell so updates show up
+  // immediately. Only fall back to the cache when there's no connection.
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
