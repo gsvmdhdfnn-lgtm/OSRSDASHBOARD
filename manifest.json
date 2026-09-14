@@ -1,0 +1,18 @@
+{
+  "name": "OSRS Tracker",
+  "short_name": "OSRS Tracker",
+  "description": "A mobile dashboard for your Old School RuneScape stats, powered by Wise Old Man.",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#14161c",
+  "theme_color": "#171a21",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
