@@ -53,10 +53,10 @@ the live stats lookup (which always needs an internet connection).
 
 The app talks directly to `https://api.wiseoldman.net/v2` from your browser:
 
-- `GET /players/username/{username}` — profile, skills, boss KC
+- `GET /players/{username}` — profile, skills, boss KC
 - `POST /players/{username}` — asks Wise Old Man to re-check your hiscores
   (used the first time you search a name, and by the "Refresh" button)
-- `GET /players/username/{username}/gained?period=...` — XP/KC gained over
+- `GET /players/{username}/gained?period=...` — XP/KC gained over
   a time window
 
 If a username hasn't been searched on Wise Old Man before, the app offers to

@@ -95,7 +95,7 @@ async function apiPost(path) {
 }
 
 function fetchPlayer(username) {
-  return apiGet(`/players/username/${encodeURIComponent(username)}`);
+  return apiGet(`/players/${encodeURIComponent(username)}`);
 }
 
 function trackPlayer(username) {
@@ -103,7 +103,7 @@ function trackPlayer(username) {
 }
 
 function fetchGains(username, period) {
-  return apiGet(`/players/username/${encodeURIComponent(username)}/gained?period=${period}`);
+  return apiGet(`/players/${encodeURIComponent(username)}/gained?period=${period}`);
 }
 
 function formatDate(iso) {
