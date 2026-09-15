@@ -10,6 +10,8 @@ Type in a RuneScape username and see:
 - **Skills**: level, XP, and rank for every skill
 - **Bosses**: kill count and rank for every boss you've killed
 - **Gains**: XP and KC gained over the last day / week / month / year
+- **Quests**: every OSRS quest with its skill and quest-point requirements,
+  checked automatically against your tracked skill levels
 
 It's a plain HTML/CSS/JS site — there's nothing to install or build.
 
@@ -48,6 +50,8 @@ the live stats lookup (which always needs an internet connection).
 - `index.html` — the page structure (search box, stat cards, tabs)
 - `style.css` — mobile-first styling, dark OSRS-inspired theme
 - `app.js` — fetches data from the Wise Old Man API and renders it
+- `quests.js` — fetches quest requirements from the OSRS Wiki and checks them
+  against your tracked skills
 - `manifest.json` + `sw.js` — make the site installable as a home-screen app
 - `icons/icon.svg` — the app icon
 
@@ -61,6 +65,27 @@ The app talks directly to `https://api.wiseoldman.net/v2` from your browser:
 
 If a username hasn't been searched on Wise Old Man before, the app offers to
 add it for tracking automatically.
+
+### Quests tab
+
+There's no public API that reports which quests an account has already
+completed (Jagex's own hiscores don't expose it, and Wise Old Man doesn't
+track it either), so this can't be fully automatic. Instead, the Quests tab:
+
+- Pulls every quest's requirements from the [OSRS Wiki's structured data
+  API](https://oldschool.runescape.wiki/w/RuneScape:Bucket)
+  (`GET https://oldschool.runescape.wiki/api.php?action=bucket`, `bucket('quest')`),
+  cached in your browser for a day at a time.
+- Checks each quest's skill requirements against your already-tracked skill
+  levels automatically.
+- Asks you to enter your current **Quest Points** once, and to tick off
+  quests as **"I've completed this"** — both are saved only in your
+  browser's local storage, never sent anywhere.
+
+A quest shows **Ready** once its skill levels, quest-point threshold, and
+ticked-off prerequisite quests are all satisfied. Item requirements and other
+free-text conditions (e.g. "access to a certain area") are shown for
+reference but aren't checked automatically.
 
 ## Customizing
 

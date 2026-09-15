@@ -1,8 +1,9 @@
-const CACHE_NAME = "osrs-tracker-v2";
+const CACHE_NAME = "osrs-tracker-v3";
 const APP_SHELL = [
   "index.html",
   "style.css",
   "app.js",
+  "quests.js",
   "manifest.json",
   "icons/icon.svg"
 ];
@@ -26,8 +27,9 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  // Never cache API calls - always go to the network for live RuneScape data.
-  if (url.hostname.includes("wiseoldman.net")) {
+  // Only manage the app's own static shell. Third-party API calls (Wise Old Man,
+  // the OSRS Wiki, ...) always go straight to the network, untouched by this worker.
+  if (url.origin !== self.location.origin) {
     return;
   }
 

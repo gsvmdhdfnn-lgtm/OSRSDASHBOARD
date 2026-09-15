@@ -43,7 +43,8 @@ const els = {
   panels: {
     skills: document.getElementById("tab-skills"),
     bosses: document.getElementById("tab-bosses"),
-    gains: document.getElementById("tab-gains")
+    gains: document.getElementById("tab-gains"),
+    quests: document.getElementById("tab-quests")
   },
   periodPicker: document.getElementById("period-picker"),
   gainsSummary: document.getElementById("gains-summary"),
@@ -140,6 +141,10 @@ function renderPlayer(player) {
   renderBosses(data && data.bosses);
 
   els.dashboard.hidden = false;
+
+  window.dispatchEvent(new CustomEvent("osrs-tracker:player-loaded", {
+    detail: { skills: (data && data.skills) || {} }
+  }));
 }
 
 function renderSkills(skills) {

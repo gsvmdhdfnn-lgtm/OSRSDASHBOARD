@@ -342,3 +342,148 @@ html, body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.quest-note {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0 0 14px;
+}
+
+.quest-inputs {
+  margin-bottom: 12px;
+}
+
+.quest-qp-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.quest-qp-label input {
+  width: 100px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.quest-search {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.quest-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.quest-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.quest-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.quest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quest-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.quest-card.quest-done {
+  opacity: 0.65;
+}
+
+.quest-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.quest-name {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.quest-name:active {
+  opacity: 0.8;
+}
+
+.quest-badge {
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.quest-badge-ready {
+  background: #2e7d4622;
+  color: #4caf6f;
+  border: 1px solid #4caf6f;
+}
+
+.quest-badge-blocked {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.quest-badge-done {
+  background: var(--bg-card);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+.quest-missing-note {
+  font-size: 0.78rem;
+  color: var(--danger);
+  margin: 8px 0 0;
+  line-height: 1.4;
+}
+
+.quest-extra-note {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.quest-complete-toggle {
+  margin-top: 10px;
+}

@@ -73,6 +73,7 @@
         <button class="tab active" data-tab="skills" role="tab">Skills</button>
         <button class="tab" data-tab="bosses" role="tab">Bosses</button>
         <button class="tab" data-tab="gains" role="tab">Gains</button>
+        <button class="tab" data-tab="quests" role="tab">Quests</button>
       </nav>
 
       <section id="tab-skills" class="tab-panel" data-panel="skills">
@@ -97,11 +98,45 @@
         <h3 class="section-title">Top boss KC gained</h3>
         <div id="gains-bosses" class="card-grid"></div>
       </section>
+
+      <section id="tab-quests" class="tab-panel" data-panel="quests" hidden>
+        <p class="quest-note">
+          Skill levels come from your tracked account automatically. Quest points and
+          completed quests aren't available from any public API, so enter them yourself
+          below &mdash; they're saved on this device only.
+        </p>
+        <div class="quest-inputs">
+          <label class="quest-qp-label">
+            Your Quest Points
+            <input id="quest-points-input" type="number" min="0" inputmode="numeric" placeholder="0" />
+          </label>
+        </div>
+        <input
+          id="quest-search"
+          type="text"
+          class="quest-search"
+          placeholder="Search quests&hellip;"
+          autocomplete="off"
+        />
+        <div class="quest-filters">
+          <label class="quest-toggle">
+            <input id="quest-filter-eligible" type="checkbox" />
+            Only show quests I can start now
+          </label>
+          <label class="quest-toggle">
+            <input id="quest-filter-hide-done" type="checkbox" />
+            Hide completed
+          </label>
+        </div>
+        <div id="quest-status" class="status" hidden></div>
+        <div id="quest-list" class="quest-list"></div>
+      </section>
     </main>
 
     <p class="footer-note">Data from <a href="https://wiseoldman.net" target="_blank" rel="noopener">wiseoldman.net</a></p>
   </div>
 
   <script src="app.js"></script>
+  <script src="quests.js"></script>
 </body>
 </html>
