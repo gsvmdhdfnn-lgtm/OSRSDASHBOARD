@@ -1,6 +1,6 @@
 import { archivePage, createBooking, getBookings, getTimeOff, getWeeklyHours } from '../lib/notion.js';
 import { computeSlots, settings, SLOT_MINUTES } from '../lib/slots.js';
-import { sendBookingEmails } from '../lib/mail.js';
+import { mailEnabled, sendBookingEmails } from '../lib/mail.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
       console.error('Booking saved but email failed:', err);
     }
 
-    res.status(200).json({ ok: true, start: start.toISOString() });
+    res.status(200).json({ ok: true, start: start.toISOString(), emailed: mailEnabled() });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong saving your booking. Please try again.' });

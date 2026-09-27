@@ -8,6 +8,7 @@ const storage = {
   clear: () => { try { localStorage.removeItem(TOKEN_KEY); } catch { /* private mode */ } },
 };
 let token = storage.get();
+let unseenIds = [];
 
 async function api(action, body) {
   const res = await fetch(`/api/admin?action=${action}`, {
@@ -63,14 +64,20 @@ async function refresh() {
 
   $('email-status').textContent = data.emailEnabled
     ? 'Email notifications are on.'
-    : 'Email notifications are off: set SMTP_USER and SMTP_PASS on the server to turn them on.';
+    : 'New bookings show up here. This page checks for new ones every minute while it’s open.';
+
+  const fresh = data.bookings.filter((b) => !b.seen);
+  unseenIds = fresh.map((b) => b.id);
+  $('new-alert').hidden = !fresh.length;
+  $('new-title').textContent = `🔔 ${fresh.length} new booking${fresh.length === 1 ? '' : 's'}`;
+  document.title = fresh.length ? `(${fresh.length}) Booking hub` : 'Booking hub';
 
   $('bookings').replaceChildren(
     ...(data.bookings.length
       ? data.bookings.map((b) =>
           listItem(
             [
-              el('strong', { textContent: fmtWhen(b.start) }),
+              el('strong', { textContent: fmtWhen(b.start) }, b.seen ? null : el('span', { className: 'badge', textContent: 'New' })),
               el('div', { textContent: `${b.name} · ` }, el('a', { href: `mailto:${b.email}`, textContent: b.email })),
               b.notes ? el('div', { className: 'muted small', textContent: b.notes }) : null,
             ],
@@ -143,6 +150,16 @@ $('login').onsubmit = async (e) => {
 };
 
 $('logout').onclick = showLogin;
+
+$('mark-seen').onclick = () => run(() => api('mark-seen', { ids: unseenIds }));
+
+// Check for new bookings every minute while the hub is open and visible.
+setInterval(() => {
+  if (token && !$('app').hidden && document.visibilityState === 'visible') refresh().catch(() => {});
+}, 60000);
+document.addEventListener('visibilitychange', () => {
+  if (token && !$('app').hidden && document.visibilityState === 'visible') refresh().catch(() => {});
+});
 
 $('hours-form').onsubmit = (e) => {
   e.preventDefault();

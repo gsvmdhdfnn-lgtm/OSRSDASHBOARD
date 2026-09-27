@@ -7,6 +7,7 @@ import {
   getPage,
   getTimeOff,
   getWeeklyHours,
+  markSeen,
   setBookingStatus,
 } from '../lib/notion.js';
 import { sendCancellationEmail, mailEnabled } from '../lib/mail.js';
@@ -73,6 +74,14 @@ export default async function handler(req, res) {
         const page = await getPage(body.id);
         if (!sameId(page.parent?.database_id, db)) return res.status(400).json({ error: 'Not found.' });
         await archivePage(body.id);
+        return res.status(200).json({ ok: true });
+      }
+
+      case 'mark-seen': {
+        const ids = (Array.isArray(body.ids) ? body.ids : []).slice(0, 50);
+        const bookings = await getBookings();
+        const allowed = new Set(bookings.map((b) => b.id));
+        await Promise.all(ids.filter((id) => allowed.has(id)).map(markSeen));
         return res.status(200).json({ ok: true });
       }
 

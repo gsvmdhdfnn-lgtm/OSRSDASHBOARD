@@ -39,6 +39,7 @@ const databases = {
       Start: { date: {} },
       Notes: { rich_text: {} },
       Status: { select: { options: [{ name: 'Confirmed', color: 'green' }, { name: 'Cancelled', color: 'red' }] } },
+      Seen: { checkbox: {} },
     },
   },
 };

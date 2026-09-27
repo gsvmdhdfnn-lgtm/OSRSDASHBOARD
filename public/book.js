@@ -147,6 +147,7 @@ $('form').onsubmit = async (e) => {
     $('pick').hidden = true;
     $('done').hidden = false;
     $('done-text').textContent = `See you on ${fmtWhen(state.slot.start)} (UK time).`;
+    $('done-email').hidden = !data.emailed;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
     showError(err.message || 'Something went wrong. Please try again.');
